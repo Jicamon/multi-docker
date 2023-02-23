@@ -7,13 +7,10 @@ before-install:
   - docker build -t jicamon/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run jicamon/react-test npm test  -- --coverage
+  - docker run -e CI=true jicamon/react-test npm test
 
 after_success:
   - docker build -t jicamon/multi-client ./client
   - docker build -t jicamon/multi-nginx ./nginx
   - docker build -t jicamon/multi-server ./server
   - docker build -t jicamon/multi-worker ./worker
-
-script:
-  - docker run -e CI=true jicamon/react-test npm test
