@@ -14,3 +14,13 @@ after_success:
   - docker build -t jicamon/multi-nginx ./nginx
   - docker build -t jicamon/multi-server ./server
   - docker build -t jicamon/multi-worker ./worker
+
+# Log in to the Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# Take those images and push them to docker hub
+  - docker push jicamon/multi-client
+  - docker push jicamon/multi-nginx
+  - docker push jicamon/multi-server
+  - docker push jicamon/multi-worker
+
